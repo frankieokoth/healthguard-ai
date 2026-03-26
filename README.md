@@ -1,6 +1,6 @@
-# Kilifi Health Sentinel
+# HealthGuard AI
 
-Kilifi Health Sentinel is a dual-portal health management and surveillance system designed for the specific needs of Kilifi County, Kenya. It bridges the gap between frontline Community Health Volunteers (CHVs) and District Health Officers to improve patient outcomes and outbreak response.
+HealthGuard AI is a dual-portal health management and surveillance system designed for the specific needs of Kilifi County, Kenya. It bridges the gap between frontline Community Health Volunteers (CHVs) and District Health Officers to improve patient outcomes and outbreak response.
 
 ## 🚀 Key Features
 
