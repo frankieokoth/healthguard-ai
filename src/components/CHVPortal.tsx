@@ -461,7 +461,7 @@ export default function CHVPortal() {
                     value={patientForm.location}
                     onChange={e => setPatientForm({...patientForm, location: e.target.value})}
                     className="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 outline-none focus:ring-2 focus:ring-blue-500 font-medium"
-                    placeholder="e.g. Kilifi North"
+                    placeholder="e.g. North Region"
                   />
                 </div>
                 <button className="w-full py-5 bg-slate-900 text-white rounded-2xl font-bold hover:bg-black transition-all mt-4 shadow-xl shadow-slate-200">

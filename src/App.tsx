@@ -45,20 +45,20 @@ export default function App() {
             name: "John Doe",
             age: 45,
             gender: "male",
-            location: "Kilifi North",
+            location: "North Region",
             createdAt: new Date().toISOString()
           });
           await addDoc(collection(db, 'patients'), {
             name: "Jane Smith",
             age: 28,
             gender: "female",
-            location: "Kilifi South",
+            location: "South Region",
             createdAt: new Date().toISOString()
           });
           
           await addDoc(collection(db, 'alerts'), {
             type: "Cholera Outbreak",
-            location: "Kilifi North",
+            location: "North Region",
             description: "Cluster of 5 cases with severe diarrhea detected in the last 24 hours.",
             severity: "critical",
             status: "active",
@@ -67,7 +67,7 @@ export default function App() {
           
           await addDoc(collection(db, 'alerts'), {
             type: "Malaria Spike",
-            location: "Kilifi South",
+            location: "South Region",
             description: "Unusual increase in high fever cases reported by CHVs.",
             severity: "high",
             status: "active",

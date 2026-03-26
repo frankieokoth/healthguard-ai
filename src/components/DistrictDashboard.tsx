@@ -103,7 +103,7 @@ export default function DistrictDashboard() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-slate-900 p-8 rounded-[2.5rem] text-white overflow-hidden relative">
         <div className="relative z-10">
           <h2 className="text-3xl font-bold tracking-tight mb-2">District Health Command</h2>
-          <p className="text-slate-400 max-w-md">Real-time surveillance and AI-driven outbreak detection for the Kilifi district.</p>
+          <p className="text-slate-400 max-w-md">Real-time surveillance and AI-driven outbreak detection for regional health districts.</p>
         </div>
         <div className="flex gap-4 relative z-10">
           <button 
