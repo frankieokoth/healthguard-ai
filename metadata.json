@@ -1,0 +1,7 @@
+{
+  "name": "HealthGuard AI",
+  "description": "AI-powered diagnostic tool for Community Health Volunteers with malnutrition detection and outbreak alerts.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

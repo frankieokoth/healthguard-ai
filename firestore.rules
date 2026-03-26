@@ -1,0 +1,92 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    // Collection: patients
+    // Fields: name, age, gender, location, createdAt
+    //
+    // Collection: symptoms
+    // Fields: patientId, symptomsList, aiDiagnosis, severity, chvId, createdAt
+    //
+    // Collection: malnutrition_scans
+    // Fields: patientId, imageUrl, aiAnalysis, riskLevel, chvId, createdAt
+    //
+    // Collection: alerts
+    // Fields: type, location, description, severity, status, createdAt
+    //
+    // Collection: users
+    // Fields: email, role, name
+    // ===============================================================
+
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'official' ||
+          (request.auth.token.email == "franklinphilip81@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function isCHV() {
+      return isAuthenticated() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'chv';
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Domain Validators
+    function isValidUser(data) {
+      return data.keys().hasOnly(['email', 'role', 'name']) &&
+             data.email is string &&
+             data.role in ['chv', 'official'] &&
+             data.name is string;
+    }
+
+    function isValidPatient(data) {
+      return data.keys().hasAll(['name', 'age', 'gender', 'location', 'createdAt']) &&
+             data.name is string && data.age is number &&
+             data.gender in ['male', 'female', 'other'] &&
+             data.location is string;
+    }
+
+    // Rules
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isOwner(userId) && isValidUser(request.resource.data);
+      allow update: if isAuthenticated() && isOwner(userId) && isValidUser(request.resource.data) && request.resource.data.role == resource.data.role;
+    }
+
+    match /patients/{patientId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && isValidPatient(request.resource.data);
+      allow update: if isAuthenticated() && isValidPatient(request.resource.data);
+      allow delete: if isAdmin();
+    }
+
+    match /symptoms/{recordId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    match /malnutrition_scans/{scanId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+
+    match /alerts/{alertId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+  }
+}

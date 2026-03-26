@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "Patient": {
+      "title": "Patient",
+      "description": "Patient basic information",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "age": { "type": "number" },
+        "gender": { "type": "string", "enum": ["male", "female", "other"] },
+        "location": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "age", "gender", "location", "createdAt"]
+    },
+    "SymptomRecord": {
+      "title": "Symptom Record",
+      "description": "Recorded symptoms and AI diagnosis",
+      "type": "object",
+      "properties": {
+        "patientId": { "type": "string" },
+        "symptomsList": { "type": "array", "items": { "type": "string" } },
+        "aiDiagnosis": { "type": "string" },
+        "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "chvId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["patientId", "symptomsList", "aiDiagnosis", "severity", "chvId", "createdAt"]
+    },
+    "MalnutritionScan": {
+      "title": "Malnutrition Scan",
+      "description": "AI analysis of malnutrition from images",
+      "type": "object",
+      "properties": {
+        "patientId": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "aiAnalysis": { "type": "string" },
+        "riskLevel": { "type": "string", "enum": ["none", "low", "moderate", "severe"] },
+        "chvId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["patientId", "imageUrl", "aiAnalysis", "riskLevel", "chvId", "createdAt"]
+    },
+    "Alert": {
+      "title": "Outbreak Alert",
+      "description": "Alerts for district officials",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string" },
+        "location": { "type": "string" },
+        "description": { "type": "string" },
+        "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "status": { "type": "string", "enum": ["active", "resolved"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "location", "description", "severity", "status", "createdAt"]
+    },
+    "User": {
+      "title": "User",
+      "description": "App user information",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["chv", "official"] },
+        "name": { "type": "string" }
+      },
+      "required": ["email", "role", "name"]
+    }
+  },
+  "firestore": {
+    "/patients/{patientId}": { "schema": "Patient", "description": "Collection of patients" },
+    "/symptoms/{recordId}": { "schema": "SymptomRecord", "description": "Collection of symptom records" },
+    "/malnutrition_scans/{scanId}": { "schema": "MalnutritionScan", "description": "Collection of malnutrition scans" },
+    "/alerts/{alertId}": { "schema": "Alert", "description": "Collection of outbreak alerts" },
+    "/users/{userId}": { "schema": "User", "description": "Collection of app users" }
+  }
+}
